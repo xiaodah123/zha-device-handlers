@@ -20,7 +20,7 @@ async def test_button_ias(zigpy_device_from_quirk):
     listener = mock.MagicMock()
     cluster.add_listener(listener)
 
-    for i in range(0, 24):
+    for i in range(0, 72):
         # button press
         cluster.update_attribute(ias_zone_status_attr_id, i)
 
@@ -29,8 +29,8 @@ async def test_button_ias(zigpy_device_from_quirk):
         assert listener.attribute_updated.call_args[0][1] == i
 
     # we get 20 events, 4 are discarded as invalid (0, 6, 12, 18)
-    assert listener.attribute_updated.call_count == 24
-    assert listener.zha_send_event.call_count == 20
+    assert listener.attribute_updated.call_count == 72
+    assert listener.zha_send_event.call_count == 70
 
 
 @pytest.mark.parametrize(
